@@ -1,0 +1,43 @@
+{
+    "name": "Tuts+ Editor Extension",
+    "description": "A simple extension for helping editing on the Tuts+ CMS",
+    "version": "0.1",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "commands": {
+        "inject": {
+          "suggested_key": {
+            "default": "Alt+9"
+          },
+          "description": "Inject a script into current tab"
+        }
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://tutsplus.io/*"],
+        "css": ["tutsio-content.css"],
+        "run_at": "document_idle",
+        "all_frames": true,
+        "match_origin_as_fallback": true,
+        "js": ["tutsio-content.js"]
+      },
+      {
+        "matches": ["https://*.tutsplus.com/tutorials/*", "https://*.tutsplus.com/articles/*"],
+        "css": ["tutscom-content.css"],
+        "run_at": "document_idle",
+        "js": ["tutscom-content.js"]
+      }
+      
+    ],
+    "host_permissions": [
+      "https://*.tutsplus.com/",
+      "https://tutsplus.com/"
+    ],
+  
+    "permissions": ["storage","activeTab", "scripting", "clipboardWrite"]
+}
